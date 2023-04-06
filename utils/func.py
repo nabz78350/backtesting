@@ -78,6 +78,20 @@ def aggregate_tickers_balance_sheet(tickers):
     return balance_sheet
 
 
+def aggregate_tickers_income_statement(tickers):
+    income_statement = {}
+    for ticker in tqdm(tickers) :
+        try :
+            income_statement_ticker = master.equities.get_ticker_income_statement(ticker,'US','q')
+            income_statement[ticker] = income_statement_ticker
+        except :
+            income_statement = income_statement
+    income_statement = pd.concat(income_statement)
+    income_statement.index.names =['Ticker','Date']
+    income_statement = income_statement .reorder_levels(['Date','Ticker'])
+
+    return income_statement
+
 def aggregate_market_data(tickers:list,period_start :datetime.date):
     mkt_data = {}
     for ticker in tqdm(tickers) :

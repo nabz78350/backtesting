@@ -75,26 +75,26 @@ def get_index_components_at(index: str = 'SPX', when: str = None) -> pd.DataFram
     for df in table: # usually the components df will be table[0], but sometimes there is a table before that just holds comments about the article, which we ignore.
         if 'Symbol' in df.columns:
             data = df.set_index('Symbol')
-            df.index.name ='Symbol'
+            data.index.name ='Ticker'
             data['Presence']= None
-            data['Presence']==True
+            data['Presence']=True
             return data[['Presence']]
         elif 'Ticker' in df.columns:
             data = df.set_index('Ticker')
-            df.index.name ='Symbol'
-            data['Presence']==True
+            data.index.name ='Ticker'
+            data['Presence']=True
             return data[['Presence']]
         elif 'Ticker Symbol' in df.columns:
             data = df.set_index('Ticker Symbol')
-            df.index.name ='Symbol'
+            data.index.name ='Ticker'
             data['Presence']= None
-            data['Presence']==True
+            data['Presence']=True
             return data[['Presence']]
         elif 'Ticker symbol' in df.columns:
             data = df.set_index('Ticker symbol')
-            df.index.name ='Symbol'
+            data.index.name ='Ticker'
             data['Presence']= None
-            data['Presence']==True
+            data['Presence']=True
             return data[['Presence']]
         else :
             pass
@@ -113,13 +113,13 @@ def get_index_components_history(index: str = 'SPX', start_date=None, end_date=N
     """
     if end_date is None:
         end_date = datetime.date.today()
-    dates = pd.date_range(start=start_date, end=end_date, freq='7D')
+    dates = pd.date_range(start=start_date, end=end_date, freq='B')
     historical_components = {}
-    for date in dates:
+    for date in tqdm(dates):
         try :
 
             components_at_date = get_index_components_at(index=index, when=date)
-            historical_components[str(date)] = list(components_at_date.index)
+            historical_components[str(date)] = (components_at_date)
         except :
             print(date)
 

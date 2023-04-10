@@ -478,7 +478,7 @@ class Equities():
         params = {
             "api_token": os.getenv('EOD_KEY'), 
             "from":"2000-01-01", 
-            "limit":1000
+            "limit":1e6
         }
         if ticker: params["code"] = "{}.{}".format(ticker, exchange)
         resp = requests.get(url, params=params)

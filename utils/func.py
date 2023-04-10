@@ -115,7 +115,19 @@ def aggregate_market_data(tickers:list,period_start :datetime.date):
 
     return mkt_data
 
-    
+def aggregate_tickers_dividends(tickers):
+    dividends = {}
+    for ticker in tqdm(tickers) :
+        try :
+            dividends_ticker = master.equities.get_historical_dividends(ticker,'US')
+            dividends[ticker] = dividends_ticker
+        except :
+            dividends = dividends
+    dividends = pd.concat(dividends)
+    dividends.index.names =['Ticker','Date']
+    dividends = dividends .reorder_levels(['Date','Ticker'])
+
+    return dividends
 
 
 def create_rank_column(df:pd.DataFrame,column :str,pct=True, ascending=True,level=0,normalize = False):

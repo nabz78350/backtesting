@@ -130,6 +130,35 @@ def aggregate_tickers_dividends(tickers):
     return dividends
 
 
+def aggregate_tickers_cash_flow(tickers):
+    cash_flow = {}
+    for ticker in tqdm(tickers) :
+        try :
+            cash_flow_ticker = master.equities.get_ticker_cash_flow(ticker,'US','q')
+            cash_flow[ticker] = cash_flow_ticker
+        except :
+            cash_flow = cash_flow
+    cash_flow = pd.concat(cash_flow)
+    cash_flow.index.names =['Ticker','Date']
+    cash_flow = cash_flow .reorder_levels(['Date','Ticker'])
+
+    return cash_flow
+
+
+def aggregate_tickers_dividends(tickers):
+    dividends = {}
+    for ticker in tqdm(tickers) :
+        try :
+            dividends_ticker = master.equities.get_historical_dividends(ticker,'US','q')
+            dividends[ticker] = dividends_ticker
+        except :
+            dividends = dividends
+    dividends = pd.concat(dividends)
+    dividends.index.names =['Ticker','Date']
+    dividends = dividends .reorder_levels(['Date','Ticker'])
+
+    return dividends
+
 def create_rank_column(df:pd.DataFrame,column :str,pct=True, ascending=True,level=0,normalize = False):
     column_rank = column+'_rank'
     if normalize:

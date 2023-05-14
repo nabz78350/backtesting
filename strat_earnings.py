@@ -44,11 +44,8 @@ def predict_earnings(simulations_earnings,dates_earnings,i,debt_cash,P):
         for date in dates_signal:
             dates.append(date)
             try :
-                sub_df = debt_cash[debt_cash.index.isin(dates_train+dates)].dropna(0,'all')
-                sub_df = sub_df.rank(axis=1,pct=True,ascending=True).clip(0.01,0.99)
-                sub_df_ticker = sub_df[ticker].rolling(20).rank(pct=True,ascending=True)
-                pred = ta.ebsw(sub_df_ticker,length=20).dropna().loc[date]
-                SIGNAL.loc[date,ticker]= pred
+                pred = ta.kurtosis(debt_cash[ticker],length=50).fillna(0)
+                SIGNAL.loc[date,ticker]= pred.loc[date]
             except :
                 pass
         
@@ -142,14 +139,16 @@ def run_signal():
     P = pd.read_parquet('data/US/universe_table.pq')
     earnings = import_earnings()
     balance_sheet = import_balance_sheets()
-    net_debt = balance_sheet['netDebt'].unstack().reindex_like(P).ffill().astype(float)
-    cash = balance_sheet['cash'].unstack().reindex_like(P).ffill().astype(float)
-
-    debt_cash = (net_debt/ cash)[P]
-    dates_earnings = DATES_EARNINGS(earnings,0.03,0.97,10,10)
-    simulations_earnings = dates_earnings.loc['2009Q4':'2023Q1'].index
+    income_statement = import_income_statements()
+    ebitda = income_statement['ebitda'].unstack().reindex_like(P).ffill().astype(float)
+    total_debt =balance_sheet['shortLongTermDebtTotal'].unstack().reindex_like(P).ffill().astype(float)
+    debt_to_ebitda = (total_debt/ebitda)[P]
+    debt_to_ebitda = debt_to_ebitda[P].rank(axis=1,pct=True,ascending=True)
+    debt_to_ebitda = debt_to_ebitda.rolling(500,min_periods=10).rank(pct=True,ascending=True).apply(norm.ppf)
+    dates_earnings = DATES_EARNINGS(earnings,0.02,0.98,10,10)
+    simulations_earnings = dates_earnings.loc['2015Q4':'2023Q1'].index
     size = len(simulations_earnings)
-    tuples = [(simulations_earnings,dates_earnings,j,debt_cash,P) for j in range(1,size)]
+    tuples = [(simulations_earnings,dates_earnings,j,debt_to_ebitda,P) for j in range(1,size)]
     multiprocessing.freeze_support()
     pool = Pool(processes=8)
     _ = pool.starmap(predict_earnings,iterable=tuples)

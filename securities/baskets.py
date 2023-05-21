@@ -12,7 +12,7 @@ import wrappers.eod_wrapper as eod_wrapper
 
 class Baskets():
     
-    def __init__(self, data_clients={}, db_service=None):
+    def __init__(self, data_clients={}):
         self.data_clients = data_clients
         self.eod_client = data_clients["eod_client"]
 

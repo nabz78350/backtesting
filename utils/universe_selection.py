@@ -1,4 +1,3 @@
-from data_master import DataMaster
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
@@ -56,6 +55,7 @@ def get_revisions_metadata(page: str, rvstart=None, rvend=None, rvdir: str = 'ne
     pages = data["query"]["pages"]
     revisions = pages[0]['revisions']
     return revisions
+
 
 def get_index_components_at(index: str = 'SPX', when: str = None) -> pd.DataFrame:
     """Returns index components at a given date, according to the latest update on Wikipedia before that date.

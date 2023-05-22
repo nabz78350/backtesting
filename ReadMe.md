@@ -84,6 +84,7 @@ The hedge of the signal are often based on stocks gics sector, industry
 ```python
 signal = signal[P].groupby(GICS['gicsect'],axis=1).apply(center)
 ```
+More documentation to come.
 
 If you see any non-sense, stupidities or anything wrong or supsicious, please reach !
 

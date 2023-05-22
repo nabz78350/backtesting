@@ -25,6 +25,16 @@ Still, this data is not from very high standard quality, and I'm sure some of th
 The historical composition of our investment universe (SP500) was extracted from wikipedia webscrapping. 
 (see 'utils/universe_selction.py')
 
+Data is stored as parquet files under US/
+
+- mkt_data : data for open,high,close,low,volume and mkt cap
+- earnings : data for earning dates, eps and eps estimate
+- dividends : data for dividend date and dividend value
+- balance_sheet : data for debt, assets, (all kind of balance sheet features)
+- income statement : data about net sales, cost of goods sold, margin, interest paid etc
+- cash flow   : details of actual stocks cash flows : depreciation, sales, investments, wages, etc.
+- presence_table : the P dataframe, historical composition of the SP500 (see utils/universe_selection.py)
+
 ## Data Extraction
 
 The data is extracted through eodhistorical data using several '.py' files

@@ -52,6 +52,19 @@ def aggregate_tickers_balance_sheet(tickers):
     balance_sheet = balance_sheet .reorder_levels(['Date','Ticker'])
     return balance_sheet
 
+def aggregate_tickers_earnings(tickers):
+    earnings = {}
+    for ticker in tqdm(tickers) :
+        try :
+            earnings_ticker = master.equities.get_ticker_earnings_history(ticker,'US')
+            earnings[ticker] = earnings_ticker
+        except :
+            earnings = earnings
+    earnings = pd.concat(earnings)
+    earnings.index.names =['Ticker','Date']
+    earnings = earnings .reorder_levels(['Date','Ticker'])
+
+    return earnings
 
 def aggregate_tickers_income_statement(tickers):
     income_statement = {}

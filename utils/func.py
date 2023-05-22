@@ -159,10 +159,5 @@ def center(x):
     x = x.sub(mean,0)
     return x
 
-if __name__=='__main__':
-    tickers = ['AAPL']
-    aapl_mkt = aggregate_market_data(tickers,datetime.date(2010,1,1))
-    aapl_balance_sheet = aggregate_tickers_balance_sheet(tickers)
-    print(aapl_mkt.dropna()) ### market cap is gave weekly, good to know to adjust
-    print(aapl_balance_sheet)
+
 

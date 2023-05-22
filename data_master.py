@@ -27,19 +27,16 @@ class DataMaster:
             os.environ['FRED_KEY'] = config["FRED_KEY"]
         self.eod_client = EodHistoricalData(os.getenv('EOD_KEY'))
         self.fred_client = Fred(api_key=os.getenv("FRED_KEY"))
-        self.oanda_client = "okok"#Oanda.API(access_token=os.environ['OAN_TOKEN'], environment=os.environ['OAN_ENV'])
+        self.oanda_client = "None"
         self.data_clients = {
             "eod_client": self.eod_client,
             "fred_client": self.fred_client,
             "oanda_client": self.oanda_client
         }
-    
-        self.misc = misc.Miscellaneous(data_clients=self.data_clients)
 
+        self.misc = misc.Miscellaneous(data_clients=self.data_clients)
         self.baskets = baskets.Baskets(data_clients=self.data_clients)
         self.equities = equities.Equities(data_clients=self.data_clients)
-
-
     
     def get_equity_service(self):
         return self.equities
@@ -50,7 +47,5 @@ class DataMaster:
     def get_basket_service(self):
         return self.baskets
     
-    def get_macro_service(self):
-        return self.macro
 
 

@@ -70,7 +70,7 @@ The functions used to aggragte data are under 'utils.func.py'. Each of the aggre
 All the function to extract the data from eod api has been mostly inspired from diverse python libraries found on the internet and that I enhanced to better serve my needs.
 
 
-## Utils-functions
+## Utils functions
 
 Some stuff you need to know 
 

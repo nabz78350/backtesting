@@ -1,0 +1,11 @@
+pandas
+scipy
+fredapi
+eod
+sec_edgar_api
+aiohttp
+tqdm
+quantstats
+pyarrow
+fastparquet
+jinja2

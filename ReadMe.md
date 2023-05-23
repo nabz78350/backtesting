@@ -1,7 +1,7 @@
 # Backtesting - L/S SP500 equities
 
 This a short repo that contains some backtests on simple strategies.
-The universe of investment is the SP500 historical composition since 2008.
+The universe of investment is the SP500 historical composition since 2008 (I couldn't find universe composition before that)
 
 ## Table of Contents
 - [Project Overview](#project-overview)

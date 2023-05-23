@@ -95,7 +95,7 @@ All these signals have constant nominal equal to 1 and no exposure (sum weights 
 ```python
 signal = signal[P].groupby(GICS['gicsect'],axis=1).apply(center)
 ```
-I'll try to write more documentation
+I'll try to write more documentation. All simulated pnls can be found in pnl_correlation.ipynb
 
 If you see any non-sense, stupidities or anything wrong or supsicious, please reach !
 

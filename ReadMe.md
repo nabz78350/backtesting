@@ -7,7 +7,7 @@ The universe of investment is the SP500 historical composition since 2008.
 - [Project Overview](#project-overview)
 - [Data Sources](#Data-sources)
 - [Data Extraction](#Data-Extraction)
-- [Utils function](#keyfacts)
+- [Utils function](#Utils-functions)
 
 ## Project Overview
 
@@ -70,7 +70,7 @@ The functions used to aggragte data are under 'utils.func.py'. Each of the aggre
 All the function to extract the data from eod api has been mostly inspired from diverse python libraries found on the internet and that I enhanced to better serve my needs.
 
 
-## keyfacts
+## Utils-functions
 
 Some stuff you need to know 
 

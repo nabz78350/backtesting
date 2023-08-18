@@ -17,7 +17,7 @@ import db_logs
 import securities.misc as misc
 import securities.baskets as baskets
 import securities.equities as equities
-
+import securities.crypto  as crypto
 class DataMaster:
 
     def __init__(self, config_file_path="config.json"):
@@ -37,6 +37,7 @@ class DataMaster:
         self.misc = misc.Miscellaneous(data_clients=self.data_clients)
         self.baskets = baskets.Baskets(data_clients=self.data_clients)
         self.equities = equities.Equities(data_clients=self.data_clients)
+        self.crypto = crypto.Crypto(data_clients=self.data_clients)
     
     def get_equity_service(self):
         return self.equities

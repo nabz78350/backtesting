@@ -22,7 +22,7 @@ Some of these signals are non tradable as the bias is small and they have too mu
 
 Most of this work is data dependant. I got my data from eodhistorical data (https://eodhistoricaldata.com/). It's a pretty cheap datasource but quite reliable (I got it for free from university). I have tested other free options and that was the most easy one, especially to developp the library to extract historical data.
 
-Still, this data is not from very high standard quality, and I'm sure some of these signals could turn out to be pure noise when tested on high quality data. But we do with what we have. I've ran many checks on the data, and I have encountered into small errors, missing data, but hopefully barely bo data leaks (earnings, income statement or whatever fundamental data that is disclosed after the date stated in eodhistoricaldata)
+Still, this data is not from very high standard quality, and I'm sure some of these signals could turn out to be pure noise when tested on high quality data. But we do with what we have. I've ran many checks on the data, and I have encountered small errors, missing data, but hopefully barely no data leaks (earnings, income statement or whatever fundamental data that is disclosed after the date stated in eodhistoricaldata)
 
 The historical composition of our investment universe (SP500) was extracted from wikipedia webscrapping. 
 (see 'utils/universe_selction.py')

@@ -97,9 +97,5 @@ signal = signal[P].groupby(GICS['gicsect'],axis=1).apply(center)
 ```
 I'll try to write more documentation
 
-If you see any non-sense, stupidities or anything wrong or supsicious, please reach !
-
-Martin Boutier
-martin.boutier@ensae.fr
 
 

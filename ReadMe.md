@@ -97,7 +97,5 @@ I'll try to write more documentation. All simulated PnLs can be found in pnl_cor
 
 If you see any non-sense, stupidities or anything wrong or supsicious, please reach !
 
-Martin Boutier
-martin.boutier@ensae.fr
 
 

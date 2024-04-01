@@ -100,6 +100,47 @@ def aggregate_market_data(tickers:list,period_start :datetime.date):
     return mkt_data
 
 
+def aggregate_dividend_data(tickers:list):
+    div_data = {}
+    for ticker in tqdm(tickers) :
+        try :
+            div_data_ticker = master.equities.get_historical_dividends(ticker,'US')
+            div_data_ticker.index = pd.to_datetime(div_data_ticker.index)
+            div_data_ticker.index.names =['Date']
+            div_data[ticker]= div_data_ticker.loc['2000':]
+        except :
+            div_data = div_data    
+    div_data = pd.concat(div_data)
+    div_data.index.names =['Ticker','Date']
+    div_data = div_data.reorder_levels(['Date','Ticker'])
+    return div_data
+
+def aggregate_intraday_data(tickers:list,period_days :int=1535,interval:str="30m"):
+    intraday_data = {}
+    for i,ticker in enumerate(tqdm(tickers)) :
+        try :
+            intraday_data_ticker = master.equities.get_intraday_data(ticker,'US',period_days= period_days,interval = interval)
+            intraday_data_ticker.index.names =['Date']
+            intraday_data_ticker.index = pd.to_datetime(intraday_data_ticker.index)
+            intraday_data[ticker]= intraday_data_ticker
+        except :
+            print(ticker)
+            intraday_data = intraday_data 
+        if i %10 ==0:
+            print('saving', i, 'stocks')
+            intraday_data_temp = pd.concat(intraday_data)
+            intraday_data_temp.index.names =['Ticker','Date']
+            intraday_data_temp = intraday_data_temp .reorder_levels(['Date','Ticker'])
+            write_to_parquet(intraday_data_temp,'US','test_intraday_data_'+interval)
+            
+        else :
+            pass
+    intraday_data = pd.concat(intraday_data)
+    intraday_data.index.names =['Ticker','Date']
+    intraday_data = intraday_data .reorder_levels(['Date','Ticker'])
+    return intraday_data
+
+
 
 def aggregate_tickers_cash_flow(tickers):
     cash_flow = {}
@@ -115,19 +156,6 @@ def aggregate_tickers_cash_flow(tickers):
 
     return cash_flow
 
-def aggregate_tickers_dividends(tickers):
-    dividends = {}
-    for ticker in tqdm(tickers) :
-        try :
-            dividends_ticker = master.equities.get_historical_dividends(ticker,'US','q')
-            dividends[ticker] = dividends_ticker
-        except :
-            dividends = dividends
-    dividends = pd.concat(dividends)
-    dividends.index.names =['Ticker','Date']
-    dividends = dividends .reorder_levels(['Date','Ticker'])
-
-    return dividends
 
 def create_rank_column(df:pd.DataFrame,column :str,pct=True, ascending=True,level=0,normalize = False):
     column_rank = column+'_rank'
@@ -156,8 +184,6 @@ def write_to_parquet(df:pd.DataFrame,directory:str,name :str):
 
 def center(x):
     mean = x.mean(1)
-    x = x.sub(mean,0)
+    x = x.sub(mean, 0)
     return x
-
-
 

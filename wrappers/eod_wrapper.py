@@ -35,8 +35,8 @@ def get_live_lagged_prices(ticker="", exchange="US"):
     resp = requests.get(url, params=params)
     return resp.json()
 
-def get_intraday_data(ticker="", exchange="US", interval="5m", to_utc=datetime.datetime.utcnow(), period_days=120):
-    #https://eodhistoricaldata.com/financial-apis/intraday-historical-data-api/
+def get_intraday_data(ticker="", exchange="US", interval="60m", to_utc=datetime.datetime.utcnow(), period_days=120):
+
     url = "https://eodhistoricaldata.com/api/intraday/{}.{}".format(ticker, exchange)
     params = {
         "api_token": os.getenv('EOD_KEY'), 

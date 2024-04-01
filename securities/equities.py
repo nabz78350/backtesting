@@ -446,7 +446,7 @@ class Equities():
         params = {
             "api_token": os.getenv('EOD_KEY'), 
             "fmt": "json",
-            "from": (datetime.datetime.today() - datetime.timedelta(days = 365)).strftime('%Y-%m-%d'),
+            "from": (datetime.datetime.today() - datetime.timedelta(days = 512)).strftime('%Y-%m-%d'),
             "to": (datetime.datetime.today() + datetime.timedelta(days = 365)).strftime('%Y-%m-%d')
         }
         resp = requests.get(url, params=params)

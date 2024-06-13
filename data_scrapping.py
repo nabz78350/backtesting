@@ -12,8 +12,8 @@ P = pd.read_parquet('data/US/test_adv_table.pq')
 def main():
     tickers = P.columns.tolist()
     
-    # mkt_data = aggregate_market_data(tickers,datetime.date(2000,1,1))
-    # write_to_parquet(mkt_data,'US','test_mkt_data')
+    mkt_data = aggregate_market_data(tickers,datetime.date(2000,1,1))
+    write_to_parquet(mkt_data,'US','test_mkt_data')
     
     # balance_sheet = aggregate_tickers_balance_sheet(tickers)
     # write_to_parquet(balance_sheet,'US','test_balance_sheet')
@@ -30,8 +30,8 @@ def main():
     # income_statement = aggregate_tickers_income_statement(tickers)
     # write_to_parquet(income_statement,'US','test_income_statement') 
     
-    dividends = aggregate_dividend_data(tickers = tickers)
-    write_to_parquet(dividends,'US','test_dividends') 
+    # dividends = aggregate_dividend_data(tickers = tickers)
+    # write_to_parquet(dividends,'US','test_dividends') 
     
 
     return None
